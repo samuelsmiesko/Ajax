@@ -3,13 +3,19 @@
 include("config.php");
 if(isset($_POST['input'])){
     $input = $_POST['input'];
+    $toSlider = $_POST['toSlider'];
+    $fromSlider = $_POST['fromSlider'];
 
-    $query = "SELECT * FROM searchperson WHERE name LIKE '{$input}%' ";
+    $query = "SELECT * FROM searchperson 
+    WHERE name LIKE '{$input}%' 
+    and age <= $toSlider
+    and age >= $fromSlider"
+    ;
 
     $result = mysqli_query($con,$query);
 
     if(mysqli_num_rows($result) > 0){?>
-
+    <div class="container">
         <table class="table table-bordered table-striped mt-4">
                 <thead>
                     <tr>
@@ -31,20 +37,26 @@ if(isset($_POST['input'])){
                             $country = $row['country'];
                             $email = $row['email'];
                             $occupation = $row['occupation'];
+                            ?>    
+                            <tr>
+                                <td><?php echo $id;?></td>
+                                <td><?php echo $name;?></td>
+                                <td><?php echo $age;?></td>
+                                <td><?php echo $country;?></td>
+                                <td><?php echo $email;?></td>
+                                <td><?php echo $occupation;?></td>
+                            </tr>
+                            <?php 
                         }
-                    ?>
+                        
 
-                    <tr>
-                        <td><?php echo $id;?></td>
-                        <td><?php echo $name;?></td>
-                        <td><?php echo $age;?></td>
-                        <td><?php echo $country;?></td>
-                        <td><?php echo $email;?></td>
-                        <td><?php echo $occupation;?></td>
-                    </tr>
+                    ?>
+                    
+
                 </tbody>
         </table>
-
+    </div>
+    
 <?php
     }else{
         echo "<h6 class='text-danger text-center mt-3'>No data Found</h6>";

@@ -1,9 +1,10 @@
 <?php
 
-$con = mysqli_connect('localhost','root','samo1234*','live_search');
+$con = mysqli_connect('localhost','root','','live_search');
 
 if(!$con){
     echo "Connecting failed !";
 }
-
+//samo1234*
 ?>
+
